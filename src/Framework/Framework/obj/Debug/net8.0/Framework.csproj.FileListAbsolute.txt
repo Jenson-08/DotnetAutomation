@@ -1,0 +1,12 @@
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\bin\Debug\net8.0\Framework.deps.json
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\bin\Debug\net8.0\Framework.dll
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\bin\Debug\net8.0\Framework.pdb
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Framework.csproj.AssemblyReference.cache
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Framework.GeneratedMSBuildEditorConfig.editorconfig
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Framework.AssemblyInfoInputs.cache
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Framework.AssemblyInfo.cs
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Framework.csproj.CoreCompileInputs.cache
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Framework.dll
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\refint\Framework.dll
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Framework.pdb
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\ref\Framework.dll

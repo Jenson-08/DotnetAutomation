@@ -1,0 +1,35 @@
+# Build directories
+/bin/
+/obj/
+/TestResults/
+
+# Visual Studio user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet packages
+*.nupkg
+*.nuget
+packages/
+
+# Visual Studio build files
+*.vcxproj.user
+*.psess
+*.vsp
+*.vspscc
+
+# Log files
+*.log
+
+# VS Code settings folder
+.vscode/
+
+# Temporary files
+*.tmp
+*.cache
+*.DS_Store  # MacOS
+
+# Visual Studio temporary files
+.vs/
