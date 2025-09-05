@@ -1,9 +1,11 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenQA.Selenium;
 
 namespace Framework.Pages
 {
@@ -18,18 +20,58 @@ namespace Framework.Pages
         private IWebElement DescriptionInput => _driver.FindElement(By.XPath("//textarea[@id='courseDescription']"));
         private IWebElement EstimatedTimeInput => _driver.FindElement(By.XPath("//input[@id='estimatedTime']"));
         private IWebElement MaterialsNeededInput => _driver.FindElement(By.XPath("//textarea[@id='materialsNeeded']"));
-        private IWebElement SubmitButton => _driver.FindElement(By.CssSelector("button[type='submit']"));
-        private IWebElement ErrorMessage => _driver.FindElement(By.XPath("//div[@class='validation--errors']"));
+        private IWebElement SubmitButton => _driver.FindElement(By.XPath("//button[@class='button' and @type='submit']"));
+
+        private IWebElement CourseDetails => _driver.FindElement(By.XPath("//h2[text()='Course Detail']"));
+
+        private IWebElement UpdateCourseButton => _driver.FindElement(By.XPath("//a[text()='Update Course']"));
+
+
+        private IWebElement ErrorMessage
+        {
+            get
+            {
+                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                return wait.Until(ExpectedConditions.ElementIsVisible(
+                    By.XPath("//div[@class='validation--errors']/h3")
+                ));
+            }
+        }
+
 
         //navigation
         public void GoToNewCourse() => NewCourseButton.Click();
 
-        public void GoToEditCourse(string courseTitle)
+        public void GoToCourse(string courseTitle)
         {
             // Buscar el curso por título y hacer click en Edit
             var course = _driver.FindElement(By.XPath($"//h3[text()='{courseTitle}']/ancestor::a"));
             course.Click(); // abre detalle del curso
-            _driver.FindElement(By.XPath("//a[text()='Update Course']")).Click();
+
+            //_driver.FindElement(By.XPath("//a[text()='Update Course']")).Click();
+        }
+
+        public IWebElement WaitForCourseDetails(int timeoutSec = 10)
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutSec));
+            return wait.Until(drv =>
+            {
+                try
+                {
+                    var element = CourseDetails;
+                    return element.Displayed ? element : null;
+                }
+                catch (NoSuchElementException)
+                {
+                    return null;
+                }
+            });
+        }
+      
+
+        public void ClickEditCourseButton()
+        {
+            UpdateCourseButton.Click();
         }
 
         public void GoToDeleteCourse(string courseTitle)

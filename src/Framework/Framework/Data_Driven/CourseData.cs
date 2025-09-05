@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Framework.Data_Driven
 {
     public static class CourseData
@@ -17,8 +18,8 @@ namespace Framework.Data_Driven
         // Negative cases for creating courses
         public static object[] InvalidCourses =
         {
-            new object[] { "", "Untitled description","","" },
-            new object[] { "Title without description", "" , "", ""}
+            new object[] { "", "Untitled description","","","Validation Errors" },
+            new object[] { "Title without description", "" , "", "", "Validation Errors" }
         };
 
         // Editing courses
@@ -31,7 +32,8 @@ namespace Framework.Data_Driven
         // Delete course
         public static object[] DeleteCourse =
         {
-            new object[] { "Selenium II" }
+            new object[] { "Selenium II" },
+            new object[] { "C# Course II" }
         };
     }
 }

@@ -25,6 +25,7 @@ namespace Framework.Pages
 
         public void GoToDashboard() => DashboardButton.Click();
 
+
         public List<string> GetCoursesTitles()
         {
             List<string> courseTitles = new List<string>();
@@ -41,6 +42,42 @@ namespace Framework.Pages
 
             return courseTitles;
         }
+
+        public void WaitForCourseToAppear(string courseTitle, int timeoutSec = 5)
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutSec));
+            wait.Until(d =>
+            {
+                try
+                {
+                    return GetCoursesTitles().Contains(courseTitle);
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+        }
+
+        public void WaitForCourseToDisappear(string courseTitle, int timeoutSec = 5)
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutSec));
+            wait.Until(d =>
+            {
+                try
+                {
+                    return !GetCoursesTitles().Contains(courseTitle);
+                }
+                catch
+                {
+                    return true; // si la lista no existe, ya desapareció
+                }
+            });
+        }
+
+
+
+
         // =====================
         // Navigate to a specific course
         // =====================
