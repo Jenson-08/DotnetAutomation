@@ -8,7 +8,7 @@ namespace Framework.Config
 {
     public class TestSettings
     {
-        public string BaseUrl { get; set; } = "https://example.org/";
+        public string BaseUrl { get; set; } = "http://localhost:3000/";
         public string Browser { get; set; } = "chrome"; // chrome | edge | firefox
         public bool Headless { get; set; } = false;
         public int ExplicitWaitSec { get; set; } = 10;

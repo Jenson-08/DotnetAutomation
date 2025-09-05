@@ -10,3 +10,4 @@ D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Frame
 D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\refint\Framework.dll
 D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Framework.pdb
 D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\ref\Framework.dll
+D:\C# Automation\DotnetAutomation\src\Framework\Framework\obj\Debug\net8.0\Framework.sourcelink.json

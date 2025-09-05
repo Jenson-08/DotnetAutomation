@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,69 @@ using System.Threading.Tasks;
 
 namespace Framework.Pages
 {
-    internal class DashboardPage
+    public class DashboardPage
     {
+        private readonly IWebDriver _driver;
+        private readonly int _explicitWaitSec;
+
+        public DashboardPage(IWebDriver driver, int explicitWaitSec = 10)
+        {
+            _driver = driver;
+            _explicitWaitSec = explicitWaitSec;
+        }
+
+
+        private IWebElement DashboardButton => _driver.FindElement(By.XPath("//a[text()='Courses']"));
+        private IWebElement WelcomeMessage => _driver.FindElement(By.XPath("//ul[@class='header--signedin']/li[contains(text(),'Welcome')]"));
+
+        public void GoToDashboard() => DashboardButton.Click();
+
+        public List<string> GetCoursesTitles()
+        {
+            List<string> courseTitles = new List<string>();
+
+            // Localizamos todos los cursos (excluyendo "New Course")
+            var courses = _driver.FindElements(By.XPath("//a[contains(@class,'course--module') and not(contains(@class,'course--add--module'))]"));
+
+            foreach (var course in courses)
+            {
+                // Obtenemos el texto del h3 dentro de cada curso
+                var title = course.FindElement(By.XPath(".//h3[@class='course--title']")).Text;
+                courseTitles.Add(title);
+            }
+
+            return courseTitles;
+        }
+        // =====================
+        // Navigate to a specific course
+        // =====================
+        public void GoToCourse(string courseTitle)
+        {
+            // Busca el curso que coincida con el nombre y hace click
+            var courseLink = _driver.FindElement(By.XPath($"//h3[text()='{courseTitle}']/ancestor::a[contains(@class,'course--module')]"));
+            courseLink.Click();
+        }
+
+        public string GetWelcomeMessage(bool waitForLoad = true)
+        {
+            if (waitForLoad)
+            {
+                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_explicitWaitSec));
+                wait.Until(d =>
+                {
+                    try
+                    {
+                        return !string.IsNullOrEmpty(WelcomeMessage.Text);
+                    }
+                    catch (NoSuchElementException)
+                    {
+                        return false;
+                    }
+                });
+            }
+
+            return WelcomeMessage.Text;
+        }
+
     }
 }

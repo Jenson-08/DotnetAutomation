@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Framework.Data_Driven
 {
-    internal class LoginData2
+    public static class LoginData
     {
+        public static object[] ValidLogins =
+        {
+            new object[] { "joe@smith.com", "joepassword", "Welcome" }
+        };
+
+        public static object[] InvalidLogins =
+        {
+            new object[] { "wrong@example.com", "badpass", "Sign in unsuccessful" }
+        };
     }
 }
