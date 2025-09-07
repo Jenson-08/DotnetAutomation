@@ -30,12 +30,12 @@ namespace Framework.Pages
         {
             List<string> courseTitles = new List<string>();
 
-            // Localizamos todos los cursos (excluyendo "New Course")
+            
             var courses = _driver.FindElements(By.XPath("//a[contains(@class,'course--module') and not(contains(@class,'course--add--module'))]"));
 
             foreach (var course in courses)
             {
-                // Obtenemos el texto del h3 dentro de cada curso
+                
                 var title = course.FindElement(By.XPath(".//h3[@class='course--title']")).Text;
                 courseTitles.Add(title);
             }
@@ -70,20 +70,14 @@ namespace Framework.Pages
                 }
                 catch
                 {
-                    return true; // si la lista no existe, ya desapareció
+                    return true; 
                 }
             });
         }
 
-
-
-
-        // =====================
-        // Navigate to a specific course
-        // =====================
         public void GoToCourse(string courseTitle)
         {
-            // Busca el curso que coincida con el nombre y hace click
+           
             var courseLink = _driver.FindElement(By.XPath($"//h3[text()='{courseTitle}']/ancestor::a[contains(@class,'course--module')]"));
             courseLink.Click();
         }

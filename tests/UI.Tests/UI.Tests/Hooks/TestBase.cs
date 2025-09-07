@@ -24,8 +24,9 @@ public abstract class TestBase
     {
         try
         {
-            // Crear reporte HTML
-            string reportPath = Path.Combine(AppContext.BaseDirectory, "ExtentReport.html");
+           
+            string projectDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..");
+            string reportPath = Path.Combine(projectDir, "Reports", "ExtentReport.html");
             var htmlReporter = new ExtentSparkReporter(reportPath);
             htmlReporter.Config.DocumentTitle = "Automation Report";
             htmlReporter.Config.ReportName = "UI Test Report";
@@ -59,7 +60,7 @@ public abstract class TestBase
             if (extent != null)
                 test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
             test?.Fail($"SetUp failed: {ex.Message}");
-            throw; // relanzar para que NUnit marque el test como fallido
+            throw;
         }
     }
 
@@ -70,34 +71,32 @@ public abstract class TestBase
         try { 
             var stacktrace = TestContext.CurrentContext.Result.StackTrace;
             var status = TestContext.CurrentContext.Result.Outcome.Status;
+            var message = TestContext.CurrentContext.Result.Message;
 
             if (Driver != null)
             {
                 if (status == TestStatus.Failed)
                 {
 
-                    //var screenshot = ScreenshotTaker.Take(Driver, TestContext.CurrentContext.Test.Name);
-                    //var screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
+                   
                     string base64 = ScreenshotTaker.Take(Driver, TestContext.CurrentContext.Test.Name);
                     string screenshotTitle = $"Failed Screenshot {DateTime.Now:yyyyMMdd_HHmmss}";
                     if (!string.IsNullOrEmpty(base64))
                     {
-                        //test.Fail("Test Failed").AddScreenCaptureFromPath(screenshot);
-                        //string reportDir = AppContext.BaseDirectory;
-                        //string relativePath = Path.Combine("Screenshots", Path.GetFileName(screenshot));
-                        // Adjuntar screenshot al test en ExtentReports
+                        
                         test?.Fail("Test Failed")
                             .AddScreenCaptureFromBase64String(base64, screenshotTitle);
 
                     }
                     if (!string.IsNullOrEmpty(stacktrace))
-                        test?.Fail(stacktrace);
+                        test?.Fail($"**Error Message:** {message}")
+                        .Fail($"**StackTrace:** {stacktrace}");
                 }
                 else if (status == TestStatus.Passed)
                 {
                     test?.Pass("Test passed");
                 }
-                // Manejo de driver: si es LoginTests, cerrar después de cada test
+                
                 if (this.GetType().Name.Contains("LoginTests"))
                 {
                     try { Driver.Quit(); } catch { }
@@ -123,8 +122,6 @@ public abstract class TestBase
         try
         {
             extent.Flush();
-
-            // Para CourseTests: cerrar driver al final de todos los tests
             if (Driver != null)
             {
                 try { Driver.Quit(); } catch { }

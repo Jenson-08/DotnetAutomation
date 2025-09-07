@@ -13,10 +13,7 @@ namespace Framework.Utils
             try
             {
                 var ss = ((ITakesScreenshot)driver).GetScreenshot();
-                //var dir = Path.Combine(AppContext.BaseDirectory, "Screenshots");
-                //Directory.CreateDirectory(dir);
-                //var file = Path.Combine(dir, $"{Sanitize(testName)}_{DateTime.Now:yyyyMMdd_HHmmss}.png");
-                //ss.SaveAsFile(file);
+             
                 return ss.AsBase64EncodedString;
             }
             catch

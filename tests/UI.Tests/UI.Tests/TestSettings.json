@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://example.org/",
+  "baseUrl": "http://localhost:3000/",
   "browser": "chrome",
   "headless": false,
   "explicitWaitSec": 10,

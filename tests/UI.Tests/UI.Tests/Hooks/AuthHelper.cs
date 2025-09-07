@@ -25,7 +25,6 @@ namespace UI.Tests.Hooks
             loginPage.GoTo();
             loginPage.Login(email, password);
 
-            // opcional: esperar a que cargue dashboard
             var dashboard = new DashboardPage(driver);
             Assert.That(dashboard.GetWelcomeMessage(), Does.Contain(expectedMessage));
         }

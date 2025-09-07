@@ -11,6 +11,7 @@ using UI.Tests.Hooks;
 
 namespace UI.Tests.Example
 {
+    [TestFixture, Order(1)]
     public class LoginTests : TestBase
     {
         [Test, TestCaseSource(typeof(LoginData), nameof(LoginData.ValidLogins))]
@@ -23,7 +24,6 @@ namespace UI.Tests.Example
             var dashboard = new DashboardPage(Driver);
 
             Assert.That(dashboard.GetWelcomeMessage(), Does.Contain(expectedMessage));
-            // Logout to reset state
             loginPage.Logout();
         }
 
@@ -33,7 +33,7 @@ namespace UI.Tests.Example
             var loginPage = new LoginPage(Driver, Settings.BaseUrl);
             loginPage.GoTo();
             loginPage.Login(email, password);
-
+            loginPage.WaitForErrorMessage();
             Assert.That(loginPage.GetErrorMessage(), Does.Contain(expectedError));
 
         }
